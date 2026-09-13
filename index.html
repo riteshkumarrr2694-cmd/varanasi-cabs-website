@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kashi Cabs — Reliable Taxi Service in Varanasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone:#F5EDE3;
+    --stone-2:#EDE1D0;
+    --ink:#232323;
+    --ink-soft:#5B5650;
+    --indigo:#1B2540;
+    --indigo-2:#131A2E;
+    --terracotta:#C1573D;
+    --terracotta-dark:#A6432B;
+    --marigold:#E8A33D;
+    --white:#FFFDF9;
+    --line:rgba(35,35,35,0.1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{ background:var(--stone); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.6; }
+  h1,h2,h3,h4{ font-family:'Fraunces',serif; font-weight:600; color:var(--indigo); }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  button{font-family:'Inter',sans-serif; cursor:pointer;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  header{ position:sticky; top:0; z-index:100; background:rgba(245,237,227,0.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
+  .brand{ font-family:'Fraunces',serif; font-size:22px; font-weight:600; color:var(--indigo); display:flex; align-items:center; gap:10px; }
+  .brand .mark{ width:34px; height:34px; border-radius:9px; background:var(--terracotta); color:var(--white); display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; }
+  .navlinks{ display:flex; gap:36px; font-size:15px; color:var(--ink); }
+  .navlinks a{ transition:color .25s ease; }
+  .navlinks a:hover{ color:var(--terracotta); }
+  .navphone{ display:flex; align-items:center; gap:10px; font-weight:600; font-size:15px; }
+  .navphone .ico{ width:36px; height:36px; border-radius:50%; background:var(--terracotta); color:var(--white); display:flex; align-items:center; justify-content:center; }
+  .navmenu-btn{ display:none; background:none; border:none; font-size:24px; color:var(--indigo); }
+
+  .hero{ padding:70px 0 100px; position:relative; overflow:hidden; }
+  .hero-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:start; }
+  .hero-tag{ display:inline-flex; align-items:center; gap:8px; background:var(--white); border:1px solid var(--line); padding:8px 16px; border-radius:100px; font-size:13.5px; color:var(--terracotta-dark); font-weight:600; margin-bottom:26px; }
+  .hero h1{ font-size:54px; line-height:1.12; margin-bottom:22px; }
+  .hero h1 .accent{ color:var(--terracotta); font-style:italic; }
+  .hero-copy p{ font-size:18px; color:var(--ink-soft); max-width:480px; margin-bottom:36px; }
+  .hero-stats{ display:flex; gap:36px; margin-top:20px; }
+  .hero-stats .stat b{ font-family:'Fraunces',serif; font-size:28px; color:var(--indigo); display:block; }
+  .hero-stats .stat span{ font-size:13px; color:var(--ink-soft); }
+
+  .book-card{ background:var(--indigo); border-radius:22px; padding:34px; color:var(--white); box-shadow:0 30px 60px -20px rgba(27,37,64,0.4); }
+  .book-card h3{ color:var(--white); font-size:22px; margin-bottom:6px; }
+  .book-card > p{ color:rgba(255,255,255,0.6); font-size:14px; margin-bottom:24px; }
+  .book-tabs{ display:flex; gap:8px; margin-bottom:22px; background:rgba(255,255,255,0.08); padding:5px; border-radius:12px; }
+  .book-tab{ flex:1; text-align:center; padding:10px; border-radius:9px; font-size:13.5px; font-weight:600; color:rgba(255,255,255,0.65); background:none; border:none; transition:background .25s ease, color .25s ease; }
+  .book-tab.active{ background:var(--terracotta); color:var(--white); }
+  .book-field{ margin-bottom:16px; }
+  .book-field label{ font-size:12.5px; color:rgba(255,255,255,0.55); display:block; margin-bottom:7px; }
+  .book-field select, .book-field input{
+    width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+    color:var(--white); padding:13px 14px; border-radius:10px; font-size:14.5px; outline:none;
+  }
+  .book-field select option{ color:var(--ink); }
+  .book-field input::placeholder{ color:rgba(255,255,255,0.4); }
+  .book-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .book-submit{ width:100%; background:var(--marigold); color:var(--indigo-2); border:none; padding:15px; border-radius:10px; font-weight:700; font-size:15px; margin-top:6px; transition:transform .25s ease, box-shadow .25s ease; }
+  .book-submit:hover{ transform:translateY(-2px); box-shadow:0 12px 26px -8px rgba(232,163,61,0.5); }
+  .book-note{ font-size:12.5px; color:rgba(255,255,255,0.45); text-align:center; margin-top:12px; }
+
+  section{ padding:100px 0; }
+  .section-tag{ color:var(--terracotta); font-size:13px; letter-spacing:0.06em; font-weight:700; text-transform:uppercase; margin-bottom:14px; }
+  .section-head{ max-width:620px; margin-bottom:56px; }
+  .section-head h2{ font-size:38px; line-height:1.2; }
+  .section-head p{ color:var(--ink-soft); font-size:16.5px; margin-top:16px; }
+
+  .fleet{ background:var(--white); }
+  .fleet-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .fleet-card{ border:1px solid var(--line); border-radius:18px; overflow:hidden; background:var(--stone); transition:transform .3s ease, box-shadow .3s ease; }
+  .fleet-card:hover{ transform:translateY(-6px); box-shadow:0 20px 40px -18px rgba(35,35,35,0.2); }
+  .fleet-img{ height:170px; background:linear-gradient(135deg,var(--indigo),var(--indigo-2)); display:flex; align-items:center; justify-content:center; font-size:50px; }
+  .fleet-body{ padding:24px; }
+  .fleet-body h4{ font-size:20px; margin-bottom:6px; }
+  .fleet-body .meta{ font-size:13.5px; color:var(--ink-soft); margin-bottom:14px; }
+  .fleet-body .price{ font-family:'Fraunces',serif; font-size:22px; color:var(--terracotta-dark); font-weight:600; }
+  .fleet-body .price span{ font-size:13px; color:var(--ink-soft); font-family:'Inter',sans-serif; font-weight:400; }
+
+  .routes-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .route-card{ background:var(--white); border:1px solid var(--line); border-radius:16px; padding:26px; display:flex; flex-direction:column; gap:8px; transition:border-color .3s ease; }
+  .route-card:hover{ border-color:var(--terracotta); }
+  .route-path{ display:flex; align-items:center; gap:10px; font-size:15px; font-weight:600; color:var(--indigo); }
+  .route-path .arrow{ color:var(--terracotta); }
+  .route-dist{ font-size:13px; color:var(--ink-soft); }
+  .route-price{ margin-top:10px; display:flex; align-items:baseline; justify-content:space-between; }
+  .route-price b{ font-family:'Fraunces',serif; font-size:22px; color:var(--terracotta-dark); }
+  .route-price a{ font-size:13.5px; font-weight:600; color:var(--indigo); border-bottom:1px solid var(--indigo); }
+
+  .why{ background:var(--indigo); color:var(--white); }
+  .why .section-tag{ color:var(--marigold); }
+  .why .section-head h2{ color:var(--white); }
+  .why .section-head p{ color:rgba(255,255,255,0.65); }
+  .why-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:30px; }
+  .why-item .icon{ width:52px; height:52px; border-radius:14px; background:rgba(232,163,61,0.15); color:var(--marigold); display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:20px; }
+  .why-item h4{ color:var(--white); font-size:19px; margin-bottom:10px; }
+  .why-item p{ color:rgba(255,255,255,0.6); font-size:14.5px; }
+
+  .tours-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .tour-card{ background:var(--white); border-radius:18px; overflow:hidden; border:1px solid var(--line); }
+  .tour-img{ height:150px; background:linear-gradient(135deg,var(--terracotta),var(--marigold)); position:relative; }
+  .tour-badge{ position:absolute; top:14px; left:14px; background:rgba(255,255,255,0.9); color:var(--indigo); font-size:12px; font-weight:700; padding:5px 12px; border-radius:100px; }
+  .tour-body{ padding:22px; }
+  .tour-body h4{ font-size:19px; margin-bottom:8px; }
+  .tour-body p{ font-size:14.5px; color:var(--ink-soft); margin-bottom:14px; }
+  .tour-body .stops{ font-size:13px; color:var(--ink-soft); margin-bottom:16px; }
+  .tour-foot{ display:flex; justify-content:space-between; align-items:center; }
+  .tour-foot b{ font-family:'Fraunces',serif; color:var(--terracotta-dark); font-size:19px; }
+
+  .testi{ background:var(--white); }
+  .testi-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .testi-card{ background:var(--stone); border-radius:16px; padding:28px; }
+  .stars{ color:var(--marigold); font-size:15px; margin-bottom:14px; letter-spacing:2px; }
+  .testi-card p{ font-size:15px; color:var(--ink); margin-bottom:18px; }
+  .testi-who{ display:flex; align-items:center; gap:12px; }
+  .testi-avatar{ width:38px; height:38px; border-radius:50%; background:var(--indigo); color:var(--white); display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:15px; }
+  .testi-who b{ font-size:14px; display:block; }
+  .testi-who span{ font-size:12.5px; color:var(--ink-soft); }
+
+  .cta-band{ background:linear-gradient(135deg,var(--terracotta),var(--terracotta-dark)); padding:70px 0; text-align:center; color:var(--white); }
+  .cta-band h2{ color:var(--white); font-size:34px; margin-bottom:16px; }
+  .cta-band p{ color:rgba(255,255,255,0.85); margin-bottom:30px; }
+  .cta-buttons{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .btn-white{ background:var(--white); color:var(--terracotta-dark); padding:15px 32px; border-radius:100px; font-weight:700; font-size:15px; transition:transform .25s ease; }
+  .btn-white:hover{ transform:translateY(-2px); }
+  .btn-outline-w{ border:1.5px solid rgba(255,255,255,0.7); color:var(--white); padding:15px 32px; border-radius:100px; font-weight:600; font-size:15px; transition:background .25s ease; }
+  .btn-outline-w:hover{ background:rgba(255,255,255,0.12); }
+
+  footer{ background:var(--indigo-2); color:rgba(255,255,255,0.7); padding:60px 0 30px; }
+  .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; margin-bottom:50px; }
+  .footer-brand .brand{ color:var(--white); }
+  .footer-brand p{ font-size:14px; margin-top:14px; max-width:280px; }
+  .footer-col h5{ color:var(--white); font-size:14px; margin-bottom:16px; font-weight:600; }
+  .footer-col a{ display:block; font-size:14px; margin-bottom:10px; transition:color .25s ease; }
+  .footer-col a:hover{ color:var(--marigold); }
+  .footer-bottom{ border-top:1px solid rgba(255,255,255,0.1); padding-top:24px; display:flex; justify-content:space-between; font-size:13px; flex-wrap:wrap; gap:10px; }
+
+  @media (max-width:980px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .fleet-grid, .routes-grid, .tours-grid, .testi-grid{ grid-template-columns:repeat(2,1fr); }
+    .why-grid{ grid-template-columns:repeat(2,1fr); }
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:720px){
+    .navlinks{ display:none; }
+    .navmenu-btn{ display:block; }
+    .navphone span{ display:none; }
+    .hero h1{ font-size:36px; }
+    .hero-stats{ flex-wrap:wrap; gap:24px; }
+    section{ padding:70px 0; }
+    .section-head h2{ font-size:28px; }
+    .fleet-grid, .routes-grid, .tours-grid, .testi-grid, .why-grid{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr; }
+    .book-row{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#home" class="brand"><span class="mark">KC</span>Kashi Cabs</a>
+      <div class="navlinks">
+        <a href="#fleet">Fleet</a>
+        <a href="#routes">Routes & Fares</a>
+        <a href="#tours">Tour Packages</a>
+        <a href="#why">Why Us</a>
+      </div>
+      <a href="tel:+919000000000" class="navphone"><span class="ico">☎</span><span>+91 90000 00000</span></a>
+      <button class="navmenu-btn">☰</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="hero-tag">🚕 Available 24×7 across Varanasi</div>
+        <h1>Varanasi, <span class="accent">unhurried</span> — from the ghats to your gate</h1>
+        <p>Airport transfers, outstation trips and full-day ghat tours with local drivers who know every lane. Clean cars, fixed fares, no last-minute surprises.</p>
+        <div class="hero-stats">
+          <div class="stat"><b>12+</b><span>years on the road</span></div>
+          <div class="stat"><b>40,000+</b><span>trips completed</span></div>
+          <div class="stat"><b>4.8★</b><span>average rating</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <h3>Book your ride</h3>
+        <p>Instant confirmation, fixed pricing.</p>
+        <div class="book-tabs">
+          <button class="book-tab active">One Way</button>
+          <button class="book-tab">Round Trip</button>
+          <button class="book-tab">Airport</button>
+        </div>
+        <div class="book-field">
+          <label>Pickup location</label>
+          <input type="text" placeholder="e.g. Assi Ghat, Varanasi">
+        </div>
+        <div class="book-field">
+          <label>Drop location</label>
+          <input type="text" placeholder="e.g. Sarnath / Babatpur Airport">
+        </div>
+        <div class="book-row">
+          <div class="book-field">
+            <label>Date</label>
+            <input type="date">
+          </div>
+          <div class="book-field">
+            <label>Time</label>
+            <input type="time">
+          </div>
+        </div>
+        <div class="book-field">
+          <label>Car type</label>
+          <select>
+            <option>Hatchback — Swift Dzire or similar</option>
+            <option>Sedan — Etios or similar</option>
+            <option>SUV — Ertiga / Innova</option>
+          </select>
+        </div>
+        <button class="book-submit" onclick="alert('Thanks — your booking request has been noted. A dispatcher will confirm your fare and driver shortly.')">Check Fare & Book</button>
+        <div class="book-note">Or call +91 90000 00000 for instant booking</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fleet" id="fleet">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Our Fleet</div>
+      <h2>A car for every kind of trip</h2>
+      <p>All vehicles are sanitised, GPS-tracked and driven by verified local drivers.</p>
+    </div>
+    <div class="fleet-grid">
+      <div class="fleet-card">
+        <div class="fleet-img">🚗</div>
+        <div class="fleet-body">
+          <h4>Hatchback</h4>
+          <div class="meta">Swift Dzire or similar · 4 seats · 2 bags</div>
+          <div class="price">₹11<span>/km</span></div>
+        </div>
+      </div>
+      <div class="fleet-card">
+        <div class="fleet-img">🚙</div>
+        <div class="fleet-body">
+          <h4>Sedan</h4>
+          <div class="meta">Etios or similar · 4 seats · 3 bags</div>
+          <div class="price">₹13<span>/km</span></div>
+        </div>
+      </div>
+      <div class="fleet-card">
+        <div class="fleet-img">🚐</div>
+        <div class="fleet-body">
+          <h4>SUV</h4>
+          <div class="meta">Ertiga / Innova · 6-7 seats · 4 bags</div>
+          <div class="price">₹17<span>/km</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="routes" id="routes">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Popular Routes</div>
+      <h2>Fixed fares, no meter surprises</h2>
+      <p>One-way pricing for the most requested routes out of Varanasi. Custom routes quoted on request.</p>
+    </div>
+    <div class="routes-grid">
+      <div class="route-card">
+        <div class="route-path">Varanasi <span class="arrow">→</span> Sarnath</div>
+        <div class="route-dist">13 km · approx 25 min</div>
+        <div class="route-price"><b>₹450</b><a href="tel:+919000000000">Book</a></div>
+      </div>
+      <div class="route-card">
+        <div class="route-path">Varanasi <span class="arrow">→</span> Babatpur Airport</div>
+        <div class="route-dist">26 km · approx 45 min</div>
+        <div class="route-price"><b>₹700</b><a href="tel:+919000000000">Book</a></div>
+      </div>
+      <div class="route-card">
+        <div class="route-path">Varanasi <span class="arrow">→</span> Prayagraj</div>
+        <div class="route-dist">122 km · approx 2.5 hrs</div>
+        <div class="route-price"><b>₹2,400</b><a href="tel:+919000000000">Book</a></div>
+      </div>
+      <div class="route-card">
+        <div class="route-path">Varanasi <span class="arrow">→</span> Ayodhya</div>
+        <div class="route-dist">200 km · approx 4 hrs</div>
+        <div class="route-price"><b>₹3,800</b><a href="tel:+919000000000">Book</a></div>
+      </div>
+      <div class="route-card">
+        <div class="route-path">Varanasi <span class="arrow">→</span> Vindhyachal</div>
+        <div class="route-dist">90 km · approx 2 hrs</div>
+        <div class="route-price"><b>₹1,900</b><a href="tel:+919000000000">Book</a></div>
+      </div>
+      <div class="route-card">
+        <div class="route-path">Varanasi <span class="arrow">→</span> Lucknow</div>
+        <div class="route-dist">290 km · approx 5.5 hrs</div>
+        <div class="route-price"><b>₹5,200</b><a href="tel:+919000000000">Book</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Why Kashi Cabs</div>
+      <h2>What you get on every trip</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="icon">🛡️</div>
+        <h4>Verified drivers</h4>
+        <p>Background-checked, licensed drivers who know the city's routes and rhythms.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon">💰</div>
+        <h4>Fixed, upfront fares</h4>
+        <p>Your fare is confirmed before you get in — no metered surprises at the end.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon">🕓</div>
+        <h4>24×7 availability</h4>
+        <p>Early ghat visits or late-night arrivals — we run around the clock.</p>
+      </div>
+      <div class="why-item">
+        <div class="icon">📍</div>
+        <h4>Live trip tracking</h4>
+        <p>Every car is GPS-tracked, so you or your family can follow the trip live.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tours" id="tours">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Tour Packages</div>
+      <h2>See Varanasi properly, not just pass through it</h2>
+      <p>Half-day and full-day packages with a driver who doubles as a local guide.</p>
+    </div>
+    <div class="tours-grid">
+      <div class="tour-card">
+        <div class="tour-img"><span class="tour-badge">Half Day</span></div>
+        <div class="tour-body">
+          <h4>Ghats & Old City</h4>
+          <p>A morning boat-ready drop, old city lanes, and the main ghats at your pace.</p>
+          <div class="stops">Assi Ghat · Dashashwamedh · Kashi Vishwanath</div>
+          <div class="tour-foot"><b>₹1,500</b><a href="tel:+919000000000" style="font-size:13.5px;font-weight:600;color:var(--indigo);border-bottom:1px solid var(--indigo);">Enquire</a></div>
+        </div>
+      </div>
+      <div class="tour-card">
+        <div class="tour-img"><span class="tour-badge">Full Day</span></div>
+        <div class="tour-body">
+          <h4>Varanasi + Sarnath</h4>
+          <p>City sights in the morning, Sarnath's Buddhist sites in the afternoon.</p>
+          <div class="stops">Kashi Vishwanath · Sarnath Stupa · New Vishwanath Temple</div>
+          <div class="tour-foot"><b>₹2,800</b><a href="tel:+919000000000" style="font-size:13.5px;font-weight:600;color:var(--indigo);border-bottom:1px solid var(--indigo);">Enquire</a></div>
+        </div>
+      </div>
+      <div class="tour-card">
+        <div class="tour-img"><span class="tour-badge">Evening</span></div>
+        <div class="tour-body">
+          <h4>Ganga Aarti Special</h4>
+          <p>Timed drop and pickup around the evening aarti, with a good viewing spot arranged.</p>
+          <div class="stops">Dashashwamedh Ghat · Assi Ghat</div>
+          <div class="tour-foot"><b>₹900</b><a href="tel:+919000000000" style="font-size:13.5px;font-weight:600;color:var(--indigo);border-bottom:1px solid var(--indigo);">Enquire</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Reviews</div>
+      <h2>What riders say</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Driver was waiting at the airport with a name board, car was spotless. Fare matched exactly what was quoted on the phone."</p>
+        <div class="testi-who"><div class="testi-avatar">R</div><div><b>Rajeev M.</b><span>Airport transfer</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Booked the Sarnath half-day package. Driver knew the history of every stop better than our hotel guide did."</p>
+        <div class="testi-who"><div class="testi-avatar">S</div><div><b>Sneha K.</b><span>Half-day tour</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Took the Innova to Prayagraj and back same day. Comfortable car, careful driver, no unnecessary stops."</p>
+        <div class="testi-who"><div class="testi-avatar">A</div><div><b>Amit S.</b><span>Outstation trip</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="wrap">
+    <h2>Ready for your ride?</h2>
+    <p>Book online in under a minute, or call us directly for immediate dispatch.</p>
+    <div class="cta-buttons">
+      <a href="#home" class="btn-white">Book a Cab</a>
+      <a href="tel:+919000000000" class="btn-outline-w">Call +91 90000 00000</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="brand"><span class="mark">KC</span>Kashi Cabs</a>
+        <p>Reliable, fixed-fare taxi service across Varanasi — local rides, outstation trips, airport transfers and guided tours.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="#fleet">Local Rides</a>
+        <a href="#routes">Outstation Trips</a>
+        <a href="#tours">Tour Packages</a>
+        <a href="#home">Airport Transfers</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#why">Why Us</a>
+        <a href="#">Fleet</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <a href="tel:+919000000000">+91 90000 00000</a>
+        <a href="mailto:booking@kashicabs.in">booking@kashicabs.in</a>
+        <a href="#">Cantonment, Varanasi, UP</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Kashi Cabs. All rights reserved.</span>
+      <span>Terms of Service · Privacy Policy</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.book-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.book-tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
